@@ -8,6 +8,7 @@ dotenv.config();
 const app = express();
 
 let mongoConnected = false;
+let mongoError = '';
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
     })
     .catch((err) => {
         console.error("MongoDB connection error:", err);
+        mongoError = err.message;
         mongoConnected = false;
     });
 
@@ -39,7 +41,7 @@ app.get('/', (req, res) => {
     if (mongoConnected) {
         res.send("MongoDB is connected successfully.");
     } else {
-        res.send("Failed to connect to MongoDB.");
+        res.send(`Failed to connect to MongoDB. Error: ${mongoError}`);
     }
 });
 
