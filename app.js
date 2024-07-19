@@ -13,7 +13,11 @@ mongoose.connect(process.env.MONGO_URI)
     .catch((err) => console.error("MongoDB connection error:", err));
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*', // Allow requests from all origins
+  credentials: true, // Allow credentials (e.g., cookies) to be sent
+  methods: ['GET', 'POST', 'PUT', 'DELETE'] // Allow these HTTP methods
+}));
 app.use(express.json());
 
 // Route imports
