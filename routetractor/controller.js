@@ -82,7 +82,7 @@ const tractorgetImage = async (req, res) => {
 const tractordeletrow = async (req, res) => {
   try {
     const { UniqueID } = req.params;
-    const data = await tractorpmodal.findOneAndDelete({ UniqueID });
+    const data = await tractormodal.findOneAndDelete({ UniqueID });
     if (data) {
       // Deleting images from Cloudinary
       const imageUrls = data.images;
